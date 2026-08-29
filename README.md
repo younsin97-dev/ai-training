@@ -8,3 +8,8 @@ Goal: Build and manage software using AI-assisted development.
 ## First Feature
 
 This change was created on my-first-feature branch.
+## What I'm Learning
+
+- GitHub branches
+- Pull requests
+- AI-assisted development
