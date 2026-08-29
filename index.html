@@ -17,8 +17,22 @@
         placeholder="What do you need to do?"
         autocomplete="off"
       >
+      <select id="priority-input" aria-label="Priority">
+        <option value="low">Low</option>
+        <option value="medium" selected>Medium</option>
+        <option value="high">High</option>
+      </select>
       <button type="submit">Add</button>
     </form>
+
+    <div class="toolbar">
+      <div class="filters" id="filters" role="group" aria-label="Filter tasks">
+        <button type="button" class="filter-btn active" data-filter="all">All</button>
+        <button type="button" class="filter-btn" data-filter="active">Active</button>
+        <button type="button" class="filter-btn" data-filter="completed">Completed</button>
+      </div>
+      <p id="task-counter" class="task-counter"></p>
+    </div>
 
     <ul id="task-list" class="task-list"></ul>
 
