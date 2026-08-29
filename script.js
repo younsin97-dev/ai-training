@@ -25,7 +25,18 @@ function loadTasks() {
 }
 
 function saveTasks() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
+  } catch {
+    /* storage unavailable or full; in-memory state still renders */
+  }
+}
+
+function createTaskId() {
+  if (typeof crypto !== "undefined" && crypto.randomUUID) {
+    return crypto.randomUUID();
+  }
+  return Date.now().toString() + Math.random().toString(36).slice(2);
 }
 
 function getFilteredTasks() {
@@ -46,7 +57,12 @@ function render() {
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
     checkbox.checked = task.completed;
-    checkbox.setAttribute("aria-label", "Mark \"" + task.text + "\" as complete");
+    checkbox.setAttribute(
+      "aria-label",
+      task.completed
+        ? "Mark \"" + task.text + "\" as not complete"
+        : "Mark \"" + task.text + "\" as complete"
+    );
     checkbox.addEventListener("change", () => toggleTask(task.id));
 
     const text = document.createElement("span");
@@ -83,7 +99,7 @@ function render() {
 
 function addTask(text, priority) {
   tasks.push({
-    id: Date.now().toString(),
+    id: createTaskId(),
     text,
     completed: false,
     priority,
